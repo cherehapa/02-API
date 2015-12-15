@@ -1,0 +1,63 @@
+FORMAT: 1A
+HOST: http://partner.tst.cherehapa.ru/
+
+#API проекта "Черехапа Страхование" v2.0
+
+Это API позволяет произвести расчет стоимости и выписку страховых полисов различных страховых компаний, а также
+получать различные данные, связанные с этим процессом.
+
+## Group Объекты [/v2/company/{id}{?key}]
+
+У объекта "Страховая компания" (company) есть следующие аттрибуты:  
++ id
++ code
++ isBlocked
++ name
++ url
++ logo
++ whiteLogo
++ color
++ insuranceRules
++ useSecondName
++ usePassport
++ childAge - удалить поле
++ agentsFee - убрать
++ roundType - убрать
++ processType - убрать
++ recommendationText - убрать
++ maxAge 
+
++ Параметры
+    + id: 1 (optional, number) - Код компании, для которой вывести информацию
+    + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа
+
+### Показать информацию о страховых компаниях [GET]
+
++ Response 200 (application/json)
+
+            {
+                "status": 200,
+                "company": [
+                    {
+                        "id": 1,
+                        "code": "erv",
+                        "isBlocked": 0,
+                        "name": "ERV",
+                        "url": "http://www.erv.ru/",
+                        "logo": "//static.cloud.cherehapa.ru/i/2.0.0/logo/215x72/erv.png",
+                        "whiteLogo": null,
+                        "color": "#beb400",
+                        "insuranceRules": null,
+                        "useSecondName": 0,
+                        "usePassport": 0,
+                        "childAge": null,
+                        "agentsFee": 30,
+                        "roundType": 0,
+                        "processType": "CreateOrderTwoStep",
+                        "recommendationText": "Проснувшись однажды утром после беспокойного сна, Грегор Замза обнаружил, что он у себя в постели превратился в страшное насекомое. Лежа на панцирнотвердой спине, он видел, стоило ему приподнять голову, свой коричневый, выпуклый, разделенный дугообразными чешуйками живот, на верхушке которого еле держалось готовое вот-вот окончательно сползти одеяло. Его многочисленные, убого тонкие",
+                        "maxAge": 130
+                    },
+                    ...
+                ]
+            }
+
