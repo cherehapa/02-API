@@ -1,4 +1,4 @@
-FORMAT: 1A
+ -FORMAT: 1A
 HOST: http://api.staging.cherehapa.ru/v2
 
 #API проекта "Черехапа Страхование" v2.0
@@ -104,4 +104,190 @@ API v.2 строится на базе RESTful схемы, т.е., в целом
                 ]
             }
 
+## Возвращает список групп стран [/countryGroup?key={key}]
+
++ Parameters
+    + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа
+
+### Метод: GET /countryGroup [GET]
+
+Выводится информация обо всех группах стран. ВНИМАНИЕ полный запрос выполняется ОЧЕНЬ ДОЛГО (от 1 до нескольких минут). В примере дан сильно усеченный пример вывода. Рекомендуется выполнять запрос с фильтром.
++ Response 200 (application/json)
+
+            {
+              "status": 200,
+              "countryGroup": {
+                "id": 3,
+                "code": "europe",
+                "name": "Страны Европы",
+                "companyId": null,
+                "isPublic": 0,
+                "country": [
+                  {
+                    "id": 12,
+                    "code": "austria",
+                    "name": "Австрия"
+                  },
+                  {
+                    "id": 18,
+                    "code": "albania",
+                    "name": "Албания"
+                  },
+                  {
+                    "id": 30,
+                    "code": "andorra",
+                    "name": "Андорра"
+                  },
+                  {
+                    "id": 60,
+                    "code": "byelorussia",
+                    "name": "Белоруссия"
+                  },
+                  {
+                    "id": 63,
+                    "code": "belgium",
+                    "name": "Бельгия"
+                  },
+                  {
+                    "id": 72,
+                    "code": "bulgaria",
+                    "name": "Болгария"
+                  }
+            }
+
+
+
+## Отображает подробные данные группы стран по id [/countryGroup/{id}?key={key}]
+
++ Parameters
+   + id: `3` (optional, number) - id группы стран (например Европа - 3)
+    + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа
+
+### Метод: GET /countryGroup/id [GET]
+
+Выводится информация о выбранной группе стран, в примере вывод ограничен первыми 6-ю странами из списка "Европа", для получения полного списка - выполните запрос с id=3.
++ Response 200 (application/json)
+
+            {
+              "status": 200,
+              "countryGroup": {
+                "id": 3,
+                "code": "europe",
+                "name": "Страны Европы",
+                "companyId": null,
+                "isPublic": 0,
+                "country": [
+                      {
+                        "id": 12,
+                        "code": "austria",
+                        "name": "Австрия"
+                      },
+                      {
+                        "id": 18,
+                        "code": "albania",
+                        "name": "Албания"
+                      },
+                      {
+                        "id": 30,
+                        "code": "andorra",
+                        "name": "Андорра"
+                      },
+                      {
+                        "id": 60,
+                        "code": "byelorussia",
+                        "name": "Белоруссия"
+                      },
+                      {
+                        "id": 63,
+                        "code": "belgium",
+                        "name": "Бельгия"
+                      },
+                      {
+                        "id": 72,
+                        "code": "bulgaria",
+                        "name": "Болгария"
+                      }
+            }
+
+## Возвращает список страховых компаний, доступных партнеру [/company?key={key}]
+
++ Parameters
+    + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа
+
+### Метод: GET /company [GET]
+
+Выводится список страховых компаний, доступных партнеру. В примере показаны только 3 компании, для того, чтобы увидеть весь список - выполните запрос.
++ Response 200 (application/json)
+
+            {
+              "status": 200,
+              "company": {
+                      "id": 51,
+                      "code": "soglasie",
+                      "isBlocked": 0,
+                      "name": "Согласие",
+                      "url": "http://www.soglasie.ru/",
+                      "logo": "//static.staging.cherehapa.ru/i/latest/logo/155x56/soglasie.png",
+                      "whiteLogo": null,
+                      "color": "#e87932",
+                      "insuranceRules": "//static.staging.cherehapa.ru/d/latest/rules/soglasie.pdf",
+                      "insuranceHospitals": null,
+                      "cancelEmail": "ap@tsys.pw",
+                      "useLocalName": 0,
+                      "usePassport": 0,
+                      "childAge": null,
+                      "agentsFee": 30,
+                      "roundType": 0,
+                      "processType": null,
+                      "recommendationText": "",
+                      "maxAge": 85,
+                      "useFullSports": 0,
+                      "additionalClasses": null
+                    },
+                    {
+                      "id": 52,
+                      "code": "rstandart",
+                      "isBlocked": 0,
+                      "name": "Русский Стандарт",
+                      "url": "http://www.rsins.ru/",
+                      "logo": "//static.staging.cherehapa.ru/i/latest/logo/155x56/rsins.png",
+                      "whiteLogo": null,
+                      "color": "#8f0a0a",
+                      "insuranceRules": "//static.staging.cherehapa.ru/d/latest/rules/rs.pdf",
+                      "insuranceHospitals": null,
+                      "cancelEmail": "ap@tsys.pw",
+                      "useLocalName": 1,
+                      "usePassport": 0,
+                      "childAge": null,
+                      "agentsFee": 30,
+                      "roundType": 0,
+                      "processType": null,
+                      "recommendationText": "",
+                      "maxAge": 80,
+                      "useFullSports": 0,
+                      "additionalClasses": null
+                    },
+                    {
+                      "id": 54,
+                      "code": "uralsib",
+                      "isBlocked": 1,
+                      "name": "Уралсиб",
+                      "url": "http://www.uralsibins.ru/",
+                      "logo": "//static.staging.cherehapa.ru/i/latest/logo/155x56/uralsib.png",
+                      "whiteLogo": null,
+                      "color": "#52ac56",
+                      "insuranceRules": null,
+                      "insuranceHospitals": null,
+                      "cancelEmail": "ap@tsys.pw",
+                      "useLocalName": 0,
+                      "usePassport": 0,
+                      "childAge": null,
+                      "agentsFee": 30,
+                      "roundType": 0,
+                      "processType": null,
+                      "recommendationText": "",
+                      "maxAge": 0,
+                      "useFullSports": 0,
+                      "additionalClasses": null
+                    }
 
