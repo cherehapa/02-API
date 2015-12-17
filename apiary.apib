@@ -1,4 +1,4 @@
- -FORMAT: 1A
+щих запросов -FORMAT: 1A
 HOST: http://api.staging.cherehapa.ru/v2
 
 #API проекта "Черехапа Страхование" v2.0
@@ -160,7 +160,7 @@ API v.2 строится на базе RESTful схемы, т.е., в целом
 ## Отображает подробные данные группы стран по id [/countryGroup/{id}?key={key}]
 
 + Parameters
-   + id: `3` (optional, number) - id группы стран (например Европа - 3)
+    + id: `3` (optional, number) - id группы стран (например Европа - 3)
     + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа
 
 ### Метод: GET /countryGroup/id [GET]
@@ -291,3 +291,40 @@ API v.2 строится на базе RESTful схемы, т.е., в целом
                       "additionalClasses": null
                     }
 
+## Отображает подробную информацию о компании по id [/company/{id}?key={key}]
+
++ Parameters
+    + id: `51` (optional, number) - id группы стран (например Согласие - 51)
+    + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа
+
+### Метод: GET /company/id [GET]
+
+Выводится подробная информация о страховой компании по id (только одной) из всего списка
++ Response 200 (application/json)
+
+            {
+              "status": 200,
+              "company": {
+                "id": 51,
+                "code": "soglasie",
+                "isBlocked": 0,
+                "name": "Согласие",
+                "url": "http://www.soglasie.ru/",
+                "logo": "//static.staging.cherehapa.ru/i/latest/logo/155x56/soglasie.png",
+                "whiteLogo": null,
+                "color": "#e87932",
+                "insuranceRules": "//static.staging.cherehapa.ru/d/latest/rules/soglasie.pdf",
+                "insuranceHospitals": null,
+                "cancelEmail": "ap@tsys.pw",
+                "useLocalName": 0,
+                "usePassport": 0,
+                "childAge": null,
+                "agentsFee": 30,
+                "roundType": 0,
+                "processType": null,
+                "recommendationText": "",
+                "maxAge": 85,
+                "useFullSports": 0,
+                "additionalClasses": null
+              }
+            }
