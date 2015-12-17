@@ -1,63 +1,107 @@
 FORMAT: 1A
-HOST: http://partner.tst.cherehapa.ru/
+HOST: http://api.staging.cherehapa.ru/v2
 
 #API проекта "Черехапа Страхование" v2.0
 
-Это API позволяет произвести расчет стоимости и выписку страховых полисов различных страховых компаний, а также
-получать различные данные, связанные с этим процессом.
+## Схема работы с API v2.0
+API v.2 строится на базе RESTful схемы, т.е., в целом обращение идет по одним и тем же адресам, а действие, выполняемое через API определяется указанным в запросе HTTP-методом.
+Обозначения:
+- [api_base] - базовый адрес конкретного API. Например: [HOST]
+- [resource] - название ресурса (объекта), с которым ведется работа. Например: country или order
+- [function] - идетификатор дополнительной функции действия над объектом
+- [id] - уникальный код элемента в базе данных
+- [] - необязательные параметры
 
-## Group Объекты [/v2/company/{id}{?key}]
+## Перечень общих методов API
 
-У объекта "Страховая компания" (company) есть следующие аттрибуты:  
-+ id
-+ code
-+ isBlocked
-+ name
-+ url
-+ logo
-+ whiteLogo
-+ color
-+ insuranceRules
-+ useSecondName
-+ usePassport
-+ childAge - удалить поле
-+ agentsFee - убрать
-+ roundType - убрать
-+ processType - убрать
-+ recommendationText - убрать
-+ maxAge 
+
+| Название метода    | Описание                                               | URL                        |HTTP-метод | Пример URL |                            
+|--------------------|--------------------------------------------------------|----------------------------|-----------|------------|
+| index              | Получение перечня объектов                             | api_base/resource      | GET       | http://api.staging.cherehapa.ru/v2/country |
+| store              | Создание нового объекта                                | api_base/resource      | POST      | http://api.staging.cherehapa.ru/v2/country |
+| show               | Получение подробных данных об объекте                  | api_base/resource/id | GET       | http://api.staging.cherehapa.ru/v2/country/1 |
+| update             | Обновление свойств объекта                             | api_base/resource/id | PUT       | http://api.staging.cherehapa.ru/v2/country/1 |
+| destroy            | Удаление объекта из базы или отмена действия объекта   | api_base/resource/id | DELETE    | http://api.staging.cherehapa.ru/v2/country/1 |
+
+## Полный перечень объектов и методов
+
+## Получение перечня стран [/country?key={key}]
 
 + Parameters
-    + id: 1 (optional, number) - Код компании, для которой вывести информацию
     + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа
 
-### Показать информацию о страховых компаниях [GET]
+### Метод: GET /country [GET]
 
+Выводится полный список стран (в примере показано только 3 страны, полный список можно увидеть выполнив запрос)
 + Response 200 (application/json)
 
             {
-                "status":200,
-                "company":
-                {   "id":1,
-                    "code":"erv",
-                    "isBlocked":0,
-                    "name":"ERV",
-                    "url":"http:\/\/www.erv.ru\/","logo":"\/\/static.staging.cherehapa.ru\/i\/latest\/logo\/155x56\/erv.png",
-                    "whiteLogo":null,
-                    "color":"#beb400",
-                    "insuranceRules":"\/\/static.staging.cherehapa.ru\/d\/latest\/rules\/erv.zip",
-                    "insuranceHospitals":null,
-                    "cancelEmail":"ap@tsys.pw",
-                    "useLocalName":0,
-                    "usePassport":0,
-                    "childAge":null,
-                    "agentsFee":30,
-                    "roundType":0,
-                    "processType":"CreateOrderTwoStep",
-                    "recommendationText":"\u041f\u0440\u043e\u0441\u043d\u0443\u0432\u0448\u0438\u0441\u044c \u043e\u0434\u043d\u0430\u0436\u0434\u044b \u0443\u0442\u0440\u043e\u043c \u043f\u043e\u0441\u043b\u0435 \u0431\u0435\u0441\u043f\u043e\u043a\u043e\u0439\u043d\u043e\u0433\u043e \u0441\u043d\u0430, \u0413\u0440\u0435\u0433\u043e\u0440 \u0417\u0430\u043c\u0437\u0430 \u043e\u0431\u043d\u0430\u0440\u0443\u0436\u0438\u043b, \u0447\u0442\u043e \u043e\u043d \u0443 \u0441\u0435\u0431\u044f \u0432 \u043f\u043e\u0441\u0442\u0435\u043b\u0438 \u043f\u0440\u0435\u0432\u0440\u0430\u0442\u0438\u043b\u0441\u044f \u0432 \u0441\u0442\u0440\u0430\u0448\u043d\u043e\u0435 \u043d\u0430\u0441\u0435\u043a\u043e\u043c\u043e\u0435. \u041b\u0435\u0436\u0430 \u043d\u0430 \u043f\u0430\u043d\u0446\u0438\u0440\u043d\u043e\u0442\u0432\u0435\u0440\u0434\u043e\u0439 \u0441\u043f\u0438\u043d\u0435, \u043e\u043d \u0432\u0438\u0434\u0435\u043b, \u0441\u0442\u043e\u0438\u043b\u043e \u0435\u043c\u0443 \u043f\u0440\u0438\u043f\u043e\u0434\u043d\u044f\u0442\u044c \u0433\u043e\u043b\u043e\u0432\u0443, \u0441\u0432\u043e\u0439 \u043a\u043e\u0440\u0438\u0447\u043d\u0435\u0432\u044b\u0439, \u0432\u044b\u043f\u0443\u043a\u043b\u044b\u0439, \u0440\u0430\u0437\u0434\u0435\u043b\u0435\u043d\u043d\u044b\u0439 \u0434\u0443\u0433\u043e\u043e\u0431\u0440\u0430\u0437\u043d\u044b\u043c\u0438 \u0447\u0435\u0448\u0443\u0439\u043a\u0430\u043c\u0438 \u0436\u0438\u0432\u043e\u0442, \u043d\u0430 \u0432\u0435\u0440\u0445\u0443\u0448\u043a\u0435 \u043a\u043e\u0442\u043e\u0440\u043e\u0433\u043e \u0435\u043b\u0435 \u0434\u0435\u0440\u0436\u0430\u043b\u043e\u0441\u044c \u0433\u043e\u0442\u043e\u0432\u043e\u0435 \u0432\u043e\u0442-\u0432\u043e\u0442 \u043e\u043a\u043e\u043d\u0447\u0430\u0442\u0435\u043b\u044c\u043d\u043e \u0441\u043f\u043e\u043b\u0437\u0442\u0438 \u043e\u0434\u0435\u044f\u043b\u043e. \u0415\u0433\u043e \u043c\u043d\u043e\u0433\u043e\u0447\u0438\u0441\u043b\u0435\u043d\u043d\u044b\u0435, \u0443\u0431\u043e\u0433\u043e \u0442\u043e\u043d\u043a\u0438\u0435",
-                    "maxAge":130,
-                    "useFullSports":0,
-                    "additionalClasses":null
-                }
+                "status": 200,
+                "country": [
+                        {
+                        "id": 6,
+                        "code": "abhazia",
+                        "name": "Абхазия",
+                        "enName": "Abkhazia",
+                        "fullName": "Республика Абхазия",
+                        "iso2": "AB",
+                        "iso3": "ABH",
+                        "countryAlias": [ 
+                            "All the world, exept USA, Japan, Australia,NewZealand,Canada"
+                          ]
+                        },
+                        {
+                          "id": 9,
+                          "code": "australia",
+                          "name": "Австралия",
+                          "enName": "Australia",
+                          "fullName": "Австралийский Союз",
+                          "iso2": "AU",
+                          "iso3": "AUS",
+                          "countryAlias": []
+                        },
+                        {
+                          "id": 12,
+                          "code": "austria",
+                          "name": "Австрия",
+                          "enName": "Austria",
+                          "fullName": "Австрийская Республика",
+                          "iso2": "AT",
+                          "iso3": "AUT",
+                          "countryAlias": [
+                            "AUSTRIA, SHENGEN"
+                          ]
+                        }
             }
+
+
+## Получение информации о стране с кодом id [/country/{id}?key={key}]
+
++ Parameters
+    + id: `570` (optional, number) - id страны (например Россия - 570)
+    + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа
+
+### Метод: GET /country/id [GET]
+
+Выводится информация о выбранной стране
++ Response 200 (application/json)
+
+            {
+              "status": 200,
+              "country": {
+                "id": 570,
+                "code": "russia",
+                "name": "Россия",
+                "enName": "Russia",
+                "fullName": "Российская Федерация",
+                "iso2": "RU",
+                "iso3": "RUS",
+                "countryAlias": [
+                  "RUSSIA FEDERATION",
+                  "РОССИЯ, СТРАНЫ СНГ",
+                  "Крым",
+                  "Сочи"
+                ]
+            }
+
 
